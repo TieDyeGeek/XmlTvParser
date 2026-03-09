@@ -7,22 +7,12 @@ namespace XmlTvParser.Services
     {
         public async Task<Tv> GetTvGuideAsync()
         {
-            var guides = new List<Tv>();
+            var tasks = Channels.AllLocal
+                .Select(async channel => await GetXmlAsync(channel.Id));
 
-            foreach (var channel in Channels.AllLocal)
-            {
-                try
-                {
-                    var guide = await GetXmlAsync(channel.Id) 
-                        ?? throw new Exception("guide was null");
+            var results = await Task.WhenAll(tasks);
 
-                    guides.Add(guide);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Failed to get XML for channel {channel.Name} ({channel.Id}): {ex.Message}");
-                }
-            }
+            var guides = results.Where(r => r != null).ToList();
 
             return new Tv
             {
