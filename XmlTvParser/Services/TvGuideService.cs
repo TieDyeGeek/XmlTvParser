@@ -16,8 +16,9 @@ namespace XmlTvParser.Services
 
             return new Tv
             {
+                Date = DateTime.UtcNow.ToString("yyyyMMddHHmmss zzz"),
                 Channels = [.. guides.SelectMany(g => g.Channels)],
-                Programmes = [.. guides.SelectMany(g => g.Programmes)]
+                Programmes = [.. guides.SelectMany(g => g.Programmes)],
             };
         }
 

@@ -6,7 +6,7 @@ using XmlTvParser.Models;
 namespace XmlTvParser.Controllers
 {
     [ApiController]
-    [Route("tvguide.xml")]
+    [Route("[controller]")]
     public class TvGuideController : ControllerBase
     {
         private readonly TvGuideService _tvGuideService = new();
