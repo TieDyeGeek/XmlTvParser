@@ -7,12 +7,32 @@ namespace XmlTvParser.Services
     {
         public async Task<Tv> GetTvGuideAsync()
         {
+            var offset = new TimeSpan(); //TimeZoneInfo.Local.GetUtcOffset(DateTime.Now);
+
             var tasks = Channels.AllLocal
-                .Select(async channel => await GetXmlAsync(channel.Id));
+                .Select(async channel => 
+                {
+                    var data = await GetXmlAsync(channel.Id);
+
+                    data?.Channels.ForEach(c => 
+                    { 
+                        c.Id = channel.Number;
+                        c.DisplayName = channel.Name;
+                    });
+
+                    data?.Programmes.ForEach(p => 
+                    {
+                        p.Channel = channel.Number;
+                        p.AdjustTime(offset);
+                    });
+
+                    return data;
+                });
 
             var results = await Task.WhenAll(tasks);
 
             var guides = results.Where(r => r != null).ToList();
+
 
             return new Tv
             {

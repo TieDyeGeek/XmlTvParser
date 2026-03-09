@@ -5,7 +5,8 @@
         public record Channel(
             string Id,
             string Name,
-            string Number
+            string Number,
+            string? IconUrl = null
         );
 
         public static readonly Channel[] AllLocal =
