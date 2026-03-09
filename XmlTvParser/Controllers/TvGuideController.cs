@@ -6,12 +6,11 @@ using XmlTvParser.Models;
 namespace XmlTvParser.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("tvguide.xml")]
     public class TvGuideController : ControllerBase
     {
         private readonly TvGuideService _tvGuideService = new();
       
-        [HttpGet(Name = "Local")]
         [Produces("application/xml")]
         public async Task<IActionResult> Get()
         {

@@ -1,6 +1,6 @@
 @XmlTvParser_HostAddress = https://localhost:7174
 
-GET {{XmlTvParser_HostAddress}}/tvGuide
+GET {{XmlTvParser_HostAddress}}/tvGuide.xml
 Accept: application/xml
 
 ###
