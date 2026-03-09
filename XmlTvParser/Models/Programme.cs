@@ -30,12 +30,12 @@ namespace XmlTvParser.Models
             if (DateTime.TryParseExact(Start, timeFormat, null, System.Globalization.DateTimeStyles.None, out var startTime))
             {
                 startTime = startTime.Add(offset);
-                Start = startTime.ToString(timeFormat);
+                Start = startTime.ToString(timeFormat).Replace(":", "");
                 Date = startTime.ToString(dateFormat);
             }
 
             if (DateTime.TryParseExact(Stop, timeFormat, null, System.Globalization.DateTimeStyles.None, out var stopTime))
-                Stop = stopTime.Add(offset).ToString(timeFormat);
+                Stop = stopTime.Add(offset).ToString(timeFormat).Replace(":", "");
         }
     }
 }
