@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using XmlTvParser.Services;
 using System.Xml.Serialization;
+using System.Xml;
 using XmlTvParser.Models;
 
 namespace XmlTvParser.Controllers
@@ -11,7 +12,7 @@ namespace XmlTvParser.Controllers
     {
         private readonly TvGuideService _tvGuideService = new();
       
-        [Produces("application/xml")]
+        [Produces("application/xml", Type = typeof(XmlDocument))]
         public async Task<IActionResult> Get()
         {
             var guide = await _tvGuideService.GetTvGuideAsync();
