@@ -1,6 +1,6 @@
 @XmlTvParser_HostAddress = http://localhost:5019
 
-GET {{XmlTvParser_HostAddress}}/weatherforecast/
+GET {{XmlTvParser_HostAddress}}/tvGuide/Local
 Accept: application/json
 
 ###
