@@ -16,7 +16,11 @@ namespace XmlTvParser.Services
 
             return new Tv
             {
-                Date = DateTime.UtcNow.ToString("yyyyMMddHHmmss zzz"),
+                Date = DateTime.Now.ToString("yyyyMMddHHmmss zzz"),
+                GeneratorInfoName = "XmlTvParser",
+                GeneratorInfoUrl = "XmlTvParser",
+                SourceInfoName = "epg.pw",
+                SourceInfoUrl = "https://epg.pw",
                 Channels = [.. guides.SelectMany(g => g.Channels)],
                 Programmes = [.. guides.SelectMany(g => g.Programmes)],
             };
@@ -26,7 +30,7 @@ namespace XmlTvParser.Services
         {
             using var httpClient = new HttpClient();
             using var response = await httpClient
-                .GetAsync($"https://epg.pw/api/epg.xml?lang=en&channel_id={id}")
+                .GetAsync($"https://epg.pw/api/epg.xml?lang=en&timezone=QW1lcmljYS9DaGljYWdv&channel_id={id}")
                 .ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
 

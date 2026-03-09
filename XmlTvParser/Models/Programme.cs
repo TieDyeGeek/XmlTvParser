@@ -14,10 +14,10 @@ namespace XmlTvParser.Models
         public string? Stop { get; set; }
 
         [XmlElement("title")]
-        public Title Title { get; set; } = new();
+        public Title? Title { get; set; }
 
         [XmlElement("desc")]
-        public Desc Desc { get; set; } = new();
+        public Desc? Desc { get; set; }
 
         [XmlElement("date")]
         public string? Date { get; set; }
@@ -25,7 +25,7 @@ namespace XmlTvParser.Models
         public void AdjustTime(TimeSpan offset)
         {
             var timeFormat = "yyyyMMddHHmmss zzz";
-            var dateFormat = "yyyy-MM-dd";
+            var dateFormat = "yyyyMMdd";
 
             if (DateTime.TryParseExact(Start, timeFormat, null, System.Globalization.DateTimeStyles.None, out var startTime))
             {

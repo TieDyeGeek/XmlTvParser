@@ -11,6 +11,6 @@ namespace XmlTvParser.Models
         public string? DisplayName { get; set; }
 
         [XmlElement("icon")]
-        public Icon Icon { get; set; } = new();
+        public Icon? Icon { get; set; }
     }
 }
