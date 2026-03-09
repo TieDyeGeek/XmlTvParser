@@ -1,12 +1,13 @@
-﻿using XmlTvSharp;
+﻿using System.Xml.Serialization;
+using XmlTvParser.Models;
 
 namespace XmlTvParser.Services
 {
     public class TvGuideService
     {
-        public async Task<XmlTvResult> GetTvGuideAsync()
+        public async Task<Tv> GetTvGuideAsync()
         {
-            var guides = new List<XmlTvResult>();
+            var guides = new List<Tv>();
 
             foreach (var channel in Channels.AllLocal)
             {
@@ -23,23 +24,24 @@ namespace XmlTvParser.Services
                 }
             }
 
-            return new XmlTvResult
+            return new Tv
             {
                 Channels = [.. guides.SelectMany(g => g.Channels)],
                 Programmes = [.. guides.SelectMany(g => g.Programmes)]
             };
         }
 
-
-        private async Task<XmlTvResult?> GetXmlAsync(string id)
+        private static async Task<Tv?> GetXmlAsync(string id)
         {
-            var httpClient = new HttpClient();
+            using var httpClient = new HttpClient();
             using var response = await httpClient
                 .GetAsync($"https://epg.pw/api/epg.xml?lang=en&channel_id={id}")
                 .ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
-            return await response.Content
-                .ReadFromJsonAsync<XmlTvResult>();
+
+            var stream = await response.Content.ReadAsStreamAsync();
+            var serializer = new XmlSerializer(typeof(Tv));
+            return (Tv?)serializer.Deserialize(stream);
         }
     }
 }
