@@ -29,11 +29,8 @@ namespace XmlTvParser.Services
 
             return new Tv
             {
-                Date = DateTime.Now.ToString("yyyyMMddHHmmss zzz").Replace(":",""),
+                //Date = DateTime.Now.ToString("yyyyMMddHHmmss zzz").Replace(":",""),
                 GeneratorInfoName = "XmlTvParser",
-                GeneratorInfoUrl = "XmlTvParser",
-                SourceInfoName = "epg.pw",
-                SourceInfoUrl = "https://epg.pw",
                 Channels = [.. guides.SelectMany(g => g.Channels)],
                 Programmes = [.. guides.SelectMany(g => g.Programmes)],
             };
