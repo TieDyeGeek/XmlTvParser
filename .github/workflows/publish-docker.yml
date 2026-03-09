@@ -38,7 +38,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/${{ toLower(github.repository_owner) }}/xmltvparser:${{ github.sha }}
-            ghcr.io/${{ toLower(github.repository_owner) }}/xmltvparser:latest
+            ghcr.io/tiedyegeek/xmltvparser:${{ github.sha }}
+            ghcr.io/tiedyegeek/xmltvparser:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
