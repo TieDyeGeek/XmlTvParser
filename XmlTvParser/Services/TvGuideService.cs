@@ -18,7 +18,12 @@ namespace XmlTvParser.Services
                         c.DisplayName = channel.Name;
                     });
 
-                    data?.Programmes.ForEach(p => p.Channel = channel.Number);
+                    data?.Programmes.ForEach(p => 
+                    {
+                        p.Channel = channel.Number;
+                        //p.AdjustTime(new TimeSpan());
+                    });
+
                     return data;
                 });
 
@@ -29,7 +34,6 @@ namespace XmlTvParser.Services
 
             return new Tv
             {
-                //Date = DateTime.Now.ToString("yyyyMMddHHmmss zzz").Replace(":",""),
                 GeneratorInfoName = "XmlTvParser",
                 Channels = [.. guides.SelectMany(g => g.Channels)],
                 Programmes = [.. guides.SelectMany(g => g.Programmes)],
