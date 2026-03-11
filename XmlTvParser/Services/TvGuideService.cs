@@ -16,6 +16,7 @@ namespace XmlTvParser.Services
                     { 
                         c.Id = channel.Number;
                         c.DisplayName = channel.Name;
+                        c.Icon.Src = channel.IconUrl;
                     });
 
                     data?.Programmes.ForEach(p => 
